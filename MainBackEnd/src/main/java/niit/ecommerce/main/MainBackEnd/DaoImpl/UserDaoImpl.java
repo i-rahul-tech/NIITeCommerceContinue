@@ -166,5 +166,21 @@ public class UserDaoImpl implements UserDao{
 				}
 	}
 
-	
+	@Override
+	//Get All Supplier
+	public List<User> getAllSupplier() {
+		//Select All Supplier
+		String selectActiveSupplier = "From User where role=:parameter";
+		//Creating Query
+		Query<User> query = sessionFactory.getCurrentSession().createQuery(selectActiveSupplier, User.class);
+		query.setParameter("parameter", "Supplier");
+		try{
+			//Return Single Result
+			return query.getResultList();
+		}
+		catch(Exception e)
+		{
+			return null;
+		}
+	}
 }

@@ -29,6 +29,9 @@ public class User implements Serializable{
 	@Column(unique = true)
 	private String uemail;
 	
+	@Column(unique = true)
+	private String s_comp_name;
+	
 	private String gender;
 	private String password;
 	private String  address;
@@ -173,6 +176,16 @@ public class User implements Serializable{
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+	
+	
+
+	public String getS_comp_name() {
+		return s_comp_name;
+	}
+
+	public void setS_comp_name(String s_comp_name) {
+		this.s_comp_name = s_comp_name;
 	}
 
 	@Override

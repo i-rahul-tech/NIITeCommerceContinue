@@ -6,7 +6,7 @@
     http://www.springframework.org/schema/security
     http://www.springframework.org/schema/security/spring-security.xsd">
 
-	<http pattern="/resources/**" security="none" />
+		<http pattern="/resources/**" security="none" />
 
 	<http>
 		<intercept-url pattern="/admin/**" access="hasAuthority('Admin')" />
@@ -20,14 +20,16 @@
 		username-parameter = "useremail" 
 		password-parameter = "password"/>
 		<logout logout-success-url="/login?logout" />
-
+		
+		
 		<csrf disabled="true" />
 	</http>
 	<authentication-manager>
 		<authentication-provider>
 			<jdbc-user-service data-source-ref="dataSource"
 				users-by-username-query="SELECT uemail, password, enable FROM user WHERE uemail = ?"
-				authorities-by-username-query="SELECT uemail, role FROM user WHERE uemail = ?" />
+				authorities-by-username-query="SELECT uemail, role FROM user WHERE uemail = ?" /> 	
 		</authentication-provider>
 	</authentication-manager>
+
 </beans:beans>

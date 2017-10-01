@@ -4,7 +4,7 @@ import java.util.List;
 
 import niit.ecommerce.main.MainBackEnd.dto.Category;
 import niit.ecommerce.main.MainBackEnd.dto.Product;
-import niit.ecommerce.main.MainBackEnd.dto.Supplier;
+import niit.ecommerce.main.MainBackEnd.dto.User;
 
 public interface ProductDao {
 
@@ -24,7 +24,7 @@ public interface ProductDao {
 	
 	public List<Product> getProductByProductName(String search);
 
-	public List<Product> getAllProductBySupplier(Supplier supplier);
+	public List<Product> getAllProductBySupplier(User user);
 	
 	public List<Product> select8Product();
 	

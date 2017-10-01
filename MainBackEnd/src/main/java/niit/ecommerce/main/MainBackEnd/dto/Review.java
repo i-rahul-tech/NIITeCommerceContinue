@@ -27,13 +27,18 @@ public class Review implements Serializable{
 	@JoinColumn(name = "product_id")
 	private Product product;
 	
+	@JsonManagedReference
+	@ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+	@JoinColumn(name = "user_id")
+	private User user;
+	
 	private String name = "Anonymous";
 	
 	private String review;
 	
 	private int rating;
 	
-	private String verified = "Not Verified";
+	private String verified = "Verified";
 
 	public Long getReview_id() {
 		return review_id;
@@ -81,6 +86,16 @@ public class Review implements Serializable{
 
 	public void setVerified(String verified) {
 		this.verified = verified;
+	}
+	
+	
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	@Override

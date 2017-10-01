@@ -78,11 +78,11 @@ input[type="password"] {
 </head>
 <body>
 	<div class="container">
-	<c:if test="${param.msg != null}">
-		<div><span class="text-success">${param.msg}</span></div>
-		</c:if>
 		<div class="wrapper">
 			<form action="${context}/login" method="post" class="form-signin">
+				<c:if test="${err != null}">
+					<div><span><a href="index" class="btn btn-info">Home</a></span></div>
+				</c:if>
 				<h3 class="form-signin-heading">Welcome Back! Please Sign In</h3>
 				<hr class="colorgraph">
 				<br>

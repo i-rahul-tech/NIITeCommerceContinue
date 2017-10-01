@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import niit.ecommerce.main.MainBackEnd.Dao.ProductDao;
 import niit.ecommerce.main.MainBackEnd.dto.Category;
 import niit.ecommerce.main.MainBackEnd.dto.Product;
-import niit.ecommerce.main.MainBackEnd.dto.Supplier;
+import niit.ecommerce.main.MainBackEnd.dto.User;
 
 @Repository("productDao")
 @Transactional
@@ -172,10 +172,10 @@ public class ProductDaoImpl implements ProductDao{
 	}
 
 	@Override
-	public List<Product> getAllProductBySupplier(Supplier supplier) {
+	public List<Product> getAllProductBySupplier(User user) {
 		String getProduct = "From Product where supplier_id=:parameter";
 		Query<Product> query = sessionFactory.getCurrentSession().createQuery(getProduct,Product.class);
-		query.setParameter("parameter", supplier);
+		query.setParameter("parameter", user);
 		try{
 			//Return List Of Product
 			return query.getResultList();

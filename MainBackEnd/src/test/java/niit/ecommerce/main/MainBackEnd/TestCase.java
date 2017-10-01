@@ -14,14 +14,12 @@ import niit.ecommerce.main.MainBackEnd.Dao.CartItemDao;
 import niit.ecommerce.main.MainBackEnd.Dao.CategoryDao;
 import niit.ecommerce.main.MainBackEnd.Dao.ProductDao;
 import niit.ecommerce.main.MainBackEnd.Dao.ReviewDao;
-import niit.ecommerce.main.MainBackEnd.Dao.SupplierDao;
 import niit.ecommerce.main.MainBackEnd.Dao.UserDao;
 import niit.ecommerce.main.MainBackEnd.dto.Cart;
 import niit.ecommerce.main.MainBackEnd.dto.CartItem;
 import niit.ecommerce.main.MainBackEnd.dto.Category;
 import niit.ecommerce.main.MainBackEnd.dto.Product;
 import niit.ecommerce.main.MainBackEnd.dto.Review;
-import niit.ecommerce.main.MainBackEnd.dto.Supplier;
 import niit.ecommerce.main.MainBackEnd.dto.User;
 
 public class TestCase {
@@ -35,14 +33,13 @@ public class TestCase {
 	static CartDao cartDao;
 	static CartItemDao cartItemDao;
 	static CategoryDao categoryDao;
-	static SupplierDao supplierDao;
+	
 	static ReviewDao reviewDao;
 	User user;
 	Product product;
 	Cart cart;
 	CartItem cartitem;
 	Category category;
-	Supplier supplier;
 	Review review;
 
 	@BeforeClass
@@ -56,7 +53,6 @@ public class TestCase {
 		cartItemDao = (CartItemDao) context.getBean("cartItemDao");
 		cartDao = (CartDao) context.getBean("cartDao");
 		categoryDao = (CategoryDao) context.getBean("categoryDao");
-		supplierDao = (SupplierDao) context.getBean("supplierDao");
 		reviewDao = (ReviewDao) context.getBean("reviewDao");
 	}
 
@@ -96,30 +92,12 @@ public class TestCase {
 	}
 
 	//@Test
-	public void test3() {
-		// Test for adding supplier
-		supplier = new Supplier();
-		supplier.setSname("Admin");
-		supplier.setSemail("admin@justbuy.com");
-		supplier.setPassword("admin");
-		supplier.setContact("9845880000");
-		supplier.setAddress("Rani Bagh");
-		supplier.setS_comp_name("admin");
-		supplier.setCountry("India");
-		supplier.setGender("Male");
-		supplier.setPincode("110034");
-		supplier.setState("Delhi");
-		supplier.setEnable(true);
-		assertEquals(true, supplierDao.addSupplier(supplier));
-	}
-
-	// @Test
 	public void test4() {
 		// Test For Adding Product
-		supplier = supplierDao.getSupplierById(new Long(2));
-		category = categoryDao.getCategoryBySubCategoryName("Mobile Accessories");
+		user = userDao.getUserById(new Long(13));
+		category = categoryDao.getCategoryBySubCategoryName("Mobile");
 		product = new Product();
-		product.setSupplier(supplier);
+		product.setUser(user);
 		product.setCategory(category);
 		product.setProd_brand("Samsung");
 		product.setProd_name("samsung sq756");
@@ -213,13 +191,7 @@ public class TestCase {
 		assertEquals(true, userDao.updateUser(user));
 	}
 
-	// @Test
-	public void test11() {
-		// Test for updating Supplier
-		supplier = supplierDao.getSupplierById(new Long(2));
-		supplier.setContact("9514568952");
-		assertEquals(true, supplierDao.updateSupplier(supplier));
-	}
+	
 
 	// @Test
 	public void test12() {
@@ -241,11 +213,7 @@ public class TestCase {
 		assertEquals(true, productDao.deleteProduct(new Long(5)));
 	}
 
-	// @Test
-	public void test15() {
-		// Test For Deleting Supplier
-		assertEquals(true, supplierDao.deleteSupplier("ankur@gmail.com"));
-	}
+	
 
 	// @Test
 	public void test16() {
@@ -332,29 +300,7 @@ public class TestCase {
 		}
 	}
 
-	// @Test
-	public void test21() {
-		// Test For Displaying All Supplier
-		System.out.println("---------All Users------------");
-		List<Supplier> lists = supplierDao.getAllSupplier();
-		for (Supplier s : lists) {
-			System.out.println(s.toString());
-		}
-
-		System.out.println("---------All Active Supplier------------");
-		List<Supplier> lists1 = supplierDao.getActiveSupplier();
-		for (Supplier s : lists1) {
-			System.out.println(s.toString());
-		}
-
-		System.out.println("---------All Inactive Users------------");
-		for (Supplier s : lists) {
-			if (s.getEnable().equals(false)) {
-				System.out.println(s.toString());
-			}
-		}
-	}
-
+	
 	//@Test
 	public void test22() {
 		Product product = productDao.getProductByProductId(new Long(1));

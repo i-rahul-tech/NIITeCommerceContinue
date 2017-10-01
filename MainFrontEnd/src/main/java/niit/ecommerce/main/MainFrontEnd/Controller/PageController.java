@@ -20,7 +20,6 @@ import niit.ecommerce.main.MainBackEnd.Dao.CartItemDao;
 import niit.ecommerce.main.MainBackEnd.Dao.CategoryDao;
 import niit.ecommerce.main.MainBackEnd.Dao.ProductDao;
 import niit.ecommerce.main.MainBackEnd.Dao.ReviewDao;
-import niit.ecommerce.main.MainBackEnd.Dao.SupplierDao;
 import niit.ecommerce.main.MainBackEnd.Dao.UserDao;
 import niit.ecommerce.main.MainBackEnd.dto.Cart;
 import niit.ecommerce.main.MainBackEnd.dto.CartItem;
@@ -48,17 +47,15 @@ public class PageController {
 	CartDao cartDao;
 
 	@Autowired
-	SupplierDao supplierDao;
-
-	@Autowired
 	ReviewDao reviewDao;
 
 	@RequestMapping(value = { "/", "/index", "/home" })
 	public String index(Principal principal, Model model) {
-
+		System.out.println("Hello From Index");
 		if (principal != null) {
 
 			User user = userDao.getUserByUsername(principal.getName());
+			System.out.println("Role: "+user.getRole());
 			if (user.getRole().equalsIgnoreCase("Admin")) {
 				model.addAttribute("uname", user.getUfname());
 				return "admin/adminIndex";
@@ -68,12 +65,24 @@ public class PageController {
 					model.addAttribute("uemail", principal.getName());
 					model.addAttribute("uname", user.getUfname());
 					return "user/userindex";
-				} else {
+				}
+			}
+				else if (user.getRole().equalsIgnoreCase("Supplier")) {
+					System.out.println("Hello From Supplier.......");
+					if (user.getStatus().equals("1")) {
+						List<Product> pro = productDao.getAllProductBySupplier(user);
+						model.addAttribute("uemail", principal.getName());
+						model.addAttribute("uname", user.getUfname());
+						model.addAttribute("total",pro.size());
+						model.addAttribute("supplier",user);
+						return "supplier/sindex";
+					}
+				}
+				else {
 					model.addAttribute("uname", user.getUfname());
 					return "user/activate";
 				}
 			}
-		}
 		return "index";
 	}
 
@@ -375,7 +384,52 @@ public class PageController {
 			return "redirect:" + referer;
 		}
 	}
-
+	
+	@RequestMapping("/user/review")
+	public String toReview( Principal principal, Model map, @RequestParam("pid") Long pid)
+	{
+		if(principal!=null)
+		{
+			User user = userDao.getUserByUsername(principal.getName());
+			map.addAttribute("uname",user.getUfname());
+			map.addAttribute("uid",user.getUser_id());
+			Product p = productDao.getProductByProductId(pid);
+			map.addAttribute("pname",p.getProd_name());
+			map.addAttribute("pid",pid);
+			return "user/review";
+		}
+		return "user/review";
+	}
+	
+	@RequestMapping("/review")
+	public String addReview( Principal principal, Model map, @RequestParam("pid") Long pid,
+			@RequestParam("rating") int rating,@RequestParam("review") String ureview, HttpServletRequest req)
+	{
+		String referer = req.getHeader("Referer");
+		User user =  userDao.getUserByUsername(principal.getName());
+		Product product = productDao.getProductByProductId(pid);
+		Review review = new Review();
+		review.setProduct(product);
+		review.setUser(user);
+		review.setRating(rating);
+		review.setReview(ureview);
+		review.setName(user.getUfname()+" "+user.getUlname());
+		Boolean b = reviewDao.addReview(review);
+		if(b)
+		{
+			map.addAttribute("msg","Thanks For Your Review....");
+			map.addAttribute("pid",pid);
+			return "redirect:" + referer;
+		}
+		else
+		{
+			map.addAttribute("msg","Unable To Update Review.....Try Again Later...");
+			map.addAttribute("pid",pid);
+			return "redirect:" + referer;
+		}
+		
+	}
+	
 	@ModelAttribute("electronicsList")
 	public List<Category> getElectronicList() {
 		List<Category> electronicsList = categoryDao.getAllCategoryByCategoryName("Electronics");

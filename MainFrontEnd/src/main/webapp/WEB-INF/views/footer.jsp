@@ -16,7 +16,7 @@ font-weight:bold;
 </style>
 </head>
 <body>
-<div class="container-fluid" style="background:#ecf2f9;height:40px;margin-top:5px;">
+<div class="container-fluid" height:40px;margin-top:5px;">
 <div class="navbar navbar-default navbar-fixed-bottom">
     <div class="container">
     <div class="row">

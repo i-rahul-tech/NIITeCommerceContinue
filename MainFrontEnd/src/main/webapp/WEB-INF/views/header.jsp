@@ -12,7 +12,8 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script-->
 <style>
-* {
+* 
+{
 	margin: 0px;
 	padding: 0px;
 }
@@ -273,8 +274,8 @@
 					<ul class="dropdown-menu dropdown-menu-left dropdownstyle">
 						<c:if test="${pageContext.request.userPrincipal.name == null}">
 						<li><a href="${context}/registration.obj">Create Account</a></li>
-						<li><a href="${context}/login/user">User Login</a></li>
-						<li><a href="${context}/login/supplier">Supplier Login</a></li>
+						<li><a href="${context}/sregistration.obj">Become Supplier</a></li>
+						<li><a href="${context}/login/user">Login</a></li>
 						<li><a href="${context}/user/usercart">View Cart</a></li>
 						<li class="divider"></li>
 						<li><a href="#">About Us</a></li>

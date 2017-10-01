@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+       <c:set var="context" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
@@ -22,7 +23,7 @@
 				<br /><br />
 				<h2 class="text-success">Welcome ${user.ufname}&nbsp;${user.ulname}, You Have Been Registered Successfully....<br>Hope To Serve You Better</h2>
 				<br/>
-				<a href="home.obj">Click Here To Continue</a>
+				<a href="index">Click Here To Continue</a>
 			</fieldset>
 		</div>
 		<jsp:include page="/WEB-INF/views/footer.jsp" />

@@ -22,10 +22,9 @@ import niit.ecommerce.main.MainBackEnd.Dao.CartItemDao;
 import niit.ecommerce.main.MainBackEnd.Dao.CategoryDao;
 import niit.ecommerce.main.MainBackEnd.Dao.ProductDao;
 import niit.ecommerce.main.MainBackEnd.Dao.ReviewDao;
-import niit.ecommerce.main.MainBackEnd.Dao.SupplierDao;
 import niit.ecommerce.main.MainBackEnd.Dao.UserDao;
 import niit.ecommerce.main.MainBackEnd.dto.Product;
-import niit.ecommerce.main.MainBackEnd.dto.Supplier;
+import niit.ecommerce.main.MainBackEnd.dto.User;
 
 @Controller
 public class SaveImage {
@@ -46,9 +45,6 @@ public class SaveImage {
 	CartDao cartDao;
 
 	@Autowired
-	SupplierDao supplierDao;
-
-	@Autowired
 	ReviewDao reviewDao;
 
 	private static final String UPLOAD_DIRECTORY = "resources/images";
@@ -59,17 +55,17 @@ public class SaveImage {
 	}
 
 	@RequestMapping(value = "savefile", method = RequestMethod.POST)
-	public String saveimage(Model map,@RequestParam CommonsMultipartFile file,@RequestParam("pid") Long pid, HttpSession session, Principal p, HttpServletRequest req) throws Exception {
+	public String saveimage(Model map, @RequestParam CommonsMultipartFile file, @RequestParam("pid") Long pid,
+			HttpSession session, Principal p, HttpServletRequest req) throws Exception {
 		String refer = req.getHeader("Referer");
-		Supplier s = supplierDao.getSupplierBySuppliername(p.getName());
+		User s = userDao.getUserByUsername(p.getName());
 		ServletContext context = session.getServletContext();
-		String path = context.getRealPath(UPLOAD_DIRECTORY)+"\\"+s.getS_comp_name()+"_"+s.getSupplier_id();
+		String path = context.getRealPath(UPLOAD_DIRECTORY) + "\\" + s.getS_comp_name() + "_" + s.getUser_id();
 		File dir = new File(path);
-		if(dir.exists())
-		{
+		if (dir.exists()) {
 			String filename = file.getOriginalFilename();
-			String imgpath = "/resources/images/"+s.getS_comp_name()+"_"+s.getSupplier_id()+"/"+filename;
-			//TO SAVE IMAGE TO LOCATION
+			String imgpath = "/resources/images/" + s.getS_comp_name() + "_" + s.getUser_id() + "/" + filename;
+			// TO SAVE IMAGE TO LOCATION
 			byte[] bytes = file.getBytes();
 			BufferedOutputStream stream = new BufferedOutputStream(
 					new FileOutputStream(new File(path + File.separator + filename)));
@@ -79,29 +75,38 @@ public class SaveImage {
 			Product pro = productDao.getProductByProductId(pid);
 			pro.setProdImg_url(imgpath);
 			productDao.updateProduct(pro);
-			map.addAttribute("err","Product Successfully Added....");
-			return "admin/productadded";
-		}
-		else
-		{
-		dir.mkdir();
-		String filename = file.getOriginalFilename();
-		filename = filename;
-		String imgpath = "/resources/images/"+s.getS_comp_name()+"_"+s.getSupplier_id()+"/"+filename;
-		System.out.println(imgpath);
-        
-		//TO SAVE IMAGE TO LOCATION
-		byte[] bytes = file.getBytes();
-		BufferedOutputStream stream = new BufferedOutputStream(
-				new FileOutputStream(new File(path + File.separator + filename)));
-		stream.write(bytes);
-		stream.flush();
-		stream.close();
-		Product pro = productDao.getProductByProductId(pid);
-		pro.setProdImg_url(imgpath);
-		productDao.updateProduct(pro);
-		map.addAttribute("err","Product Successfully Added....");
-		return "admin/productadded";
+			map.addAttribute("err", "Product Successfully Added....");
+			if (s.getRole().equalsIgnoreCase("Admin")) {
+				map.addAttribute("uname",s.getUfname());
+				return "admin/productadded";
+			} else {
+				map.addAttribute("uname",s.getUfname());
+				return "supplier/sproductadded";
+			}
+		} else {
+			dir.mkdir();
+			String filename = file.getOriginalFilename();
+			String imgpath = "/resources/images/" + s.getS_comp_name() + "_" + s.getUser_id() + "/" + filename;
+			System.out.println(imgpath);
+
+			// TO SAVE IMAGE TO LOCATION
+			byte[] bytes = file.getBytes();
+			BufferedOutputStream stream = new BufferedOutputStream(
+					new FileOutputStream(new File(path + File.separator + filename)));
+			stream.write(bytes);
+			stream.flush();
+			stream.close();
+			Product pro = productDao.getProductByProductId(pid);
+			pro.setProdImg_url(imgpath);
+			productDao.updateProduct(pro);
+			map.addAttribute("err", "Product Successfully Added....");
+			if (s.getRole().equalsIgnoreCase("Admin")) {
+				map.addAttribute("uname",s.getUfname());
+				return "admin/productadded";
+			} else {
+				map.addAttribute("uname",s.getUfname());
+				return "supplier/sproductadded";
+			}
 		}
 	}
 }

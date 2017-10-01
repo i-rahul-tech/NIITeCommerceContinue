@@ -41,9 +41,9 @@ public class Product implements Serializable{
 	private Category category;
 	
 	@JsonManagedReference
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "supplier_id")
-	private Supplier supplier;
+	private User user;
 
 	public Long getProd_id() {
 		return prod_id;
@@ -117,19 +117,20 @@ public class Product implements Serializable{
 		this.category = category;
 	}
 
-	public Supplier getSupplier() {
-		return supplier;
+
+
+	public User getUser() {
+		return user;
 	}
 
-	public void setSupplier(Supplier supplier) {
-		this.supplier = supplier;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	@Override
 	public String toString() {
 		return "Product [prod_id=" + prod_id + ", prod_brand=" + prod_brand + ", prod_name=" + prod_name
 				+ ", prod_description=" + prod_description + ", prodImg_url=" + prodImg_url + ", price=" + price
-				+ ", quantity=" + quantity + ", activeIs=" + activeIs + ", category=" + category + ", supplier="
-				+ supplier + "]";
+				+ ", quantity=" + quantity + ", activeIs=" + activeIs + ", category=" + category + "]";
 	}
 }

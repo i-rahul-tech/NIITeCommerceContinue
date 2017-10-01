@@ -7,7 +7,6 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-		<title>Confirm Details</title>
 		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -17,9 +16,6 @@
 
 </head>
 <body>
-<c:if test="${msg != null}">
-<script>alert("${msg}")</script>
-</c:if>
 <jsp:include page="/WEB-INF/views/admin/adminheader.jsp"></jsp:include>
 <div class="container-fluid" style="margin-top:15px;">
 	<h3 class="text-success">User Table</h3>
@@ -29,6 +25,7 @@
 			<tr>
 				<th>#</th>
 				<th>First Name</th>
+				<th>Last Name</th>
 				<th>Company Name</th>
 				<th>Gender</th>
 				<th>Email Id</th>
@@ -42,13 +39,14 @@
 				<th>Action</th>
 			</tr>
 			<c:forEach items="${supplier}" var = "a">
-				<c:if test="${a.enable == true}">
+				<c:if test="${a.status == 1}">
 				<tr class="success">
-				<th>${a.supplier_id}</th>
-				<td class="text-primary">${a.sname}</td>
+				<th>${a.user_id}</th>
+				<td class="text-primary">${a.ufname}</td>
+				<td class="text-primary">${a.ulname}</td>
 				<td class="text-primary">${a.s_comp_name}</td>
 				<td class="text-primary">${a.gender}</td>
-				<td class="text-primary">${a.semail}</td>
+				<td class="text-primary">${a.uemail}</td>
 				<td class="text-primary">${a.dob}</td>
 				<td class="text-primary">${a.address}</td>
 				<td class="text-primary">${a.pincode}</td>
@@ -56,16 +54,19 @@
 				<td class="text-primary">${a.country}</td>
 				<td class="text-primary">${a.role}</td>
 				<td class="text-primary">${a.enable}</td>
-				<td class="text-info"><a href="${context}/updatesupplier?uid=${a.supplier_id}" class="btn btn-danger">Disable</a></td>
+				<c:if test="${a.status == 1}">
+				<td class="text-info"><a href="${context}/updateuser?uid=${a.user_id}" class="btn btn-danger">Disable</a></td>
+				</c:if>
 				</tr>
 				</c:if>
-				<c:if test="${a.enable == false}">
+				<c:if test="${a.status == 0}">
 				<tr class="danger">
-				<th>${a.supplier_id}</th>
-				<td class="text-primary">${a.sname}</td>
+				<th>${a.user_id}</th>
+				<td class="text-primary">${a.ufname}</td>
+				<td class="text-primary">${a.ulname}</td>
 				<td class="text-primary">${a.s_comp_name}</td>
 				<td class="text-primary">${a.gender}</td>
-				<td class="text-primary">${a.semail}</td>
+				<td class="text-primary">${a.uemail}</td>
 				<td class="text-primary">${a.dob}</td>
 				<td class="text-primary">${a.address}</td>
 				<td class="text-primary">${a.pincode}</td>
@@ -73,7 +74,7 @@
 				<td class="text-primary">${a.country}</td>
 				<td class="text-primary">${a.role}</td>
 				<td class="text-primary">${a.enable}</td>
-				<td class="text-info"><a href="${context}/updatesupplier?uid=${a.supplier_id}" class="btn btn-success">Enable</a></td>
+				<td class="text-info"><a href="${context}/updateuser?uid=${a.user_id}" class="btn btn-success">Enable</a></td>
 				</tr>
 				</c:if>
 		</c:forEach>

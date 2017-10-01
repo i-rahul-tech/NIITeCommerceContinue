@@ -16,7 +16,7 @@
  	table 
 	{
   	border-collapse: separate;
-  	border-spacing: 40px 0;
+  	border-spacing: 30px 0;
 	}
 
 	td 
@@ -45,6 +45,9 @@
 				</tr>
 				<tr>
 					<th><sf:label path="ulname">Last Name:</sf:label></th><td>${user.ulname}</td>
+				</tr>
+				<tr>
+					<th><sf:label path="s_comp_name">Company Name:</sf:label></th><td>${user.s_comp_name}</td>
 				</tr>
 				<tr>
 					<th><sf:label path="uemail">Email Id:</sf:label></th><td>${user.uemail}</td>

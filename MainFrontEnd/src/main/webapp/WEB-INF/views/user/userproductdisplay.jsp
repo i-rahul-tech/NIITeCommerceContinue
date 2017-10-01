@@ -59,7 +59,7 @@ div.section > div > input {margin:0;padding-left:5px;font-size:10px;padding-righ
                 </div>
                 <div class="col-xs-5" style="border:0px solid gray">
                     <h3 class="text-capitalize">${product.prod_name}</h3>    
-                    <h5 style="color:#337ab7"><u>Sold By ${product.supplier.s_comp_name}</u></h5> <small>&nbsp;&nbsp;Quantity Left: ${product.quantity}</small>
+                    <h5 style="color:#337ab7"><u>Sold By ${product.user.s_comp_name}</u></h5> <small>&nbsp;&nbsp;Quantity Left: ${product.quantity}</small>
         
                     <h6 class="title-price"><small>Price</small></h6>
                     <h3 style="margin-top:0px;">&#8377; ${product.price}</h3>

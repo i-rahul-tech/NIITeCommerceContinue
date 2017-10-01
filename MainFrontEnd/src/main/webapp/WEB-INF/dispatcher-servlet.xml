@@ -29,6 +29,8 @@
 		<!-- here the id is mapped to invoke this flow -->
 		<webflow:flow-location id="registration"
 			path="/registrationFlow.xml" />
+			<webflow:flow-location id="sregistration"
+			path="/sregistrationFlow.xml" />
 		<webflow:flow-location id="checkout" path="/checkoutFlow.xml" />
 	</webflow:flow-registry>
 

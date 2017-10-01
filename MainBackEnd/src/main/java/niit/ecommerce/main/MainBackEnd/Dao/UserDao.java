@@ -21,4 +21,6 @@ public interface UserDao {
 	public List<User> getAllUser();
 	
 	public List<User> getActiveUser();
+	
+	public List<User> getAllSupplier();
 }
