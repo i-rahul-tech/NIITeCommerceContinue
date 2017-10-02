@@ -38,7 +38,7 @@ height:300px
                   <h4 class="pull-right">&#8377; ${a.price}</h4>
                   <h4 class="text-capitalize"><a href="product/display?pid=${a.prod_id}">${a.prod_name}</a></h4>
                   <small class="text-capitalize text-info">Sold By: ${a.user.s_comp_name}</small>
-                  <p class="text-capitalize text-success" style="margin-top:4px;">${a.prod_description}</p>
+
                 </div>
            
                 <div class="space-ten"></div>

@@ -46,7 +46,7 @@
 				<td class="text-primary">${a.prod_name}</td>
 				<td class="text-primary"><div class="media">
 					<div class="thumbnail pull-left">
-				<img class="media-object" src=<c:url value="${a.prodImg_url}" /> alt="no-image" style="width:200px;height:75px;" />
+				<img class="media-object" src=<c:url value="${a.prodImg_url}" /> alt="no-image" style="width:150px;height:75px;" />
 				</div></div></td>
 				<td class="text-primary">${a.quantity}</td>
 				<td class="text-primary">${a.prod_description}</td>
@@ -65,7 +65,7 @@
 				<td class="text-primary">${a.prod_name}</td>
 				<td><div class="media">
 					<div class="thumbnail pull-left">
-				<img class="media-object" src=<c:url value="${a.prodImg_url}" /> alt="no-image" style="width:72px;height:72px;" />
+				<img class="media-object" src=<c:url value="${a.prodImg_url}" /> alt="no-image" style="width:150px;height:75px;" />
 				</div></div></td>
 				<td class="text-primary">${a.quantity}</td>
 				<td class="text-primary">${a.prod_description}</td>

@@ -67,6 +67,7 @@ public class SupplierHandler {
 		String refer = req.getHeader("Referer");
 		Product product = new Product();
 		product.setProd_brand(brand);
+		prodname = prodname.toLowerCase();
 		product.setProd_name(prodname);
 		product.setProd_description(description);
 		product.setPrice(price);
@@ -118,6 +119,7 @@ public class SupplierHandler {
 			{
 				long id = product.getProd_id();
 				System.out.println("Product Id" + id);
+				map.addAttribute("uname",user.getUfname());
 				map.addAttribute("prod_id", id);
 				return ("supplier/suploadimage");
 			}
@@ -132,8 +134,8 @@ public class SupplierHandler {
 			return "redirect:" + referer;
 		}
 	}
-
-
+	
+	
 	@ModelAttribute("categoryList")
 	public List<Category> getCategory(Model map) {
 		List<Category> categoryList = categoryDao.getAllCategory();

@@ -61,10 +61,13 @@ public class SaveImage {
 		User s = userDao.getUserByUsername(p.getName());
 		ServletContext context = session.getServletContext();
 		String path = context.getRealPath(UPLOAD_DIRECTORY) + "\\" + s.getS_comp_name() + "_" + s.getUser_id();
+		path = path.replaceAll("\\s+", "");
 		File dir = new File(path);
 		if (dir.exists()) {
 			String filename = file.getOriginalFilename();
+			filename = filename.replaceAll("\\s+", "");
 			String imgpath = "/resources/images/" + s.getS_comp_name() + "_" + s.getUser_id() + "/" + filename;
+			imgpath = imgpath.replaceAll("\\s+", "");
 			// TO SAVE IMAGE TO LOCATION
 			byte[] bytes = file.getBytes();
 			BufferedOutputStream stream = new BufferedOutputStream(
@@ -86,7 +89,10 @@ public class SaveImage {
 		} else {
 			dir.mkdir();
 			String filename = file.getOriginalFilename();
+			filename = filename.replaceAll("\\s+", "");
+			System.out.println("FileName"+filename);
 			String imgpath = "/resources/images/" + s.getS_comp_name() + "_" + s.getUser_id() + "/" + filename;
+			imgpath = imgpath.replaceAll("\\s+", "");
 			System.out.println(imgpath);
 
 			// TO SAVE IMAGE TO LOCATION

@@ -225,6 +225,7 @@ public class AdminController {
 		String refer = req.getHeader("Referer");
 		Product product = new Product();
 		product.setProd_brand(brand);
+		prodname = prodname.toLowerCase();
 		product.setProd_name(prodname);
 		product.setProd_description(description);
 		product.setPrice(price);
@@ -249,6 +250,7 @@ public class AdminController {
 	public String toUpdateProduct(@RequestParam("pid") Long pid, Model map, Principal p)
 	{
 		User user = userDao.getUserByUsername(p.getName());
+		map.addAttribute("user",user);
 		map.addAttribute("uname", user.getUfname());
 		Product product = productDao.getProductByProductId(pid);
 		map.addAttribute("product",product);

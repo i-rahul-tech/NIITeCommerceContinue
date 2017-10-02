@@ -429,6 +429,24 @@ public class PageController {
 		}
 		
 	}
+
+	@RequestMapping("/aboutus")
+	public String aboutus(Model map, Principal principal) {
+		if (principal != null) {
+			User user = userDao.getUserByUsername(principal.getName());
+			map.addAttribute("uname", user.getUfname());
+		}
+		return "aboutus";
+	}
+	
+	@RequestMapping("/contactus")
+	public String contactus(Model map, Principal principal) {
+		if (principal != null) {
+			User user = userDao.getUserByUsername(principal.getName());
+			map.addAttribute("uname", user.getUfname());
+		}
+		return "contactus";
+	}
 	
 	@ModelAttribute("electronicsList")
 	public List<Category> getElectronicList() {

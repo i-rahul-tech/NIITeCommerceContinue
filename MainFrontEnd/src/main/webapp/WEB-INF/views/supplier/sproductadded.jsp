@@ -18,7 +18,7 @@
 <title>Product Added</title>
 </head>
 <body>
-	<jsp:include page="/WEB-INF/views/header.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/views/supplier/sheader.jsp"></jsp:include>
 	<div class="container" style="margin: 15px 0 0 5%;">
 	<h4 class="text-info">Product Added Successfully....</h4>
 	</br>

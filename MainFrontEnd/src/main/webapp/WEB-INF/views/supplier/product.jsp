@@ -7,7 +7,6 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-		<link href="style.css" rel="stylesheet" type="text/css" />
 		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -23,7 +22,6 @@
 	<div class="col-sm-12 table-responsive">
 		<table class="table table-hover table-border">
 			<tr>
-				<th>#</th>
 				<th>Product Brand</th>
 				<th>Product Name</th>
 				<th>Image</th>
@@ -40,12 +38,11 @@
 			<c:forEach items="${productList}" var = "a">
 				<c:if test="${a.activeIs==true}">
 				<tr class="success">
-				<th>${a.prod_id}</th>
 				<td class="text-primary">${a.prod_brand}</td>
 				<td class="text-primary">${a.prod_name}</td>
 				<td class="text-primary"><div class="media">
 					<div class="thumbnail pull-left">
-				<img class="media-object" src=<c:url value="${a.prodImg_url}" /> alt="no-image" style="width:130px;height:75px;" />
+				<img class="media-object" src=<c:url value="${a.prodImg_url}" /> alt="no-image" style="width:180px;height:75px;" />
 				</div></div></td>
 				<td class="text-primary">${a.quantity}</td>
 				<td class="text-primary">${a.prod_description}</td>
@@ -55,16 +52,15 @@
 				<td class="text-primary">${a.user.ufname}</td>
 				<td class="text-primary">${a.user.s_comp_name}</td>
 				<td class="text-info"><a href="${context}/updateproduct?pid=${a.prod_id}" class="btn btn-danger">Disable</a></td>
-				<td class="text-info"><a href="${context}/updateproduct1?pid=${a.prod_id}" class="btn btn-primary">Update</a></td>
+				<td class="text-info"><a href="${context}/supdateproduct1?pid=${a.prod_id}" class="btn btn-primary">Update</a></td>
 				</c:if>
 				<c:if test="${a.activeIs == false}">
 				<tr class="danger">
-				<th>${a.prod_id}</th>
 				<td class="text-primary">${a.prod_brand}</td>
 				<td class="text-primary">${a.prod_name}</td>
 				<td><div class="media">
 					<div class="thumbnail pull-left">
-				<img class="media-object" src=<c:url value="${a.prodImg_url}" /> alt="no-image" style="width:72px;height:72px;" />
+				<img class="media-object" src=<c:url value="${a.prodImg_url}" /> alt="no-image" style="width:150px;height:75px;" />
 				</div></div></td>
 				<td class="text-primary">${a.quantity}</td>
 				<td class="text-primary">${a.prod_description}</td>

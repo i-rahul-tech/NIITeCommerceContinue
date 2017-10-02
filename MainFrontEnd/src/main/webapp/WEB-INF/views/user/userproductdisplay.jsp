@@ -93,8 +93,8 @@ div.section > div > input {margin:0;padding-left:5px;font-size:10px;padding-righ
                         <li class="active">Product Details</li>
                     </ul>
                     <div style="width:100%;border-top:1px solid silver">
-                        <p style="padding:15px;">
-                            <small>${product.prod_description}</small>
+                         <p style="padding:15px;" class="text-justify">
+                            ${product.prod_description}
                         </p>
                         <!-- small>
                             <ul>

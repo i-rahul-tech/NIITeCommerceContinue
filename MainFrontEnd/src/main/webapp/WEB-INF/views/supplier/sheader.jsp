@@ -211,8 +211,8 @@
 						<li><a href="${context}/admin/updatepwd">Update Password</a></li>
 						<li><a href="${context}/logout">Logout</a></li>
 						<li class="divider"></li>
-						<li><a href="#">About Us</a></li>
-						<li><a href="#">Contact Us</a></li>
+						<li><a href="${context}/aboutus">About Us</a></li>
+						<li><a href="${context}/contactus">Contact Us</a></li>
 						</c:if>
 					</ul>
 				</div>
