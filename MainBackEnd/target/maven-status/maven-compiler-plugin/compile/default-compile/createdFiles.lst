@@ -4,9 +4,7 @@ niit\ecommerce\main\MainBackEnd\Dao\ReviewDao.class
 niit\ecommerce\main\MainBackEnd\Dao\ProductDao.class
 niit\ecommerce\main\MainBackEnd\dto\User.class
 niit\ecommerce\main\MainBackEnd\Dao\CategoryDao.class
-niit\ecommerce\main\MainBackEnd\dto\Supplier.class
 niit\ecommerce\main\MainBackEnd\DaoImpl\ProductDaoImpl.class
-niit\ecommerce\main\MainBackEnd\DaoImpl\SupplierDaoImpl.class
 niit\ecommerce\main\MainBackEnd\Dao\CartItemDao.class
 niit\ecommerce\main\MainBackEnd\DaoImpl\CartItemDaoImpl.class
 niit\ecommerce\main\MainBackEnd\dto\Product.class
@@ -16,7 +14,6 @@ niit\ecommerce\main\MainBackEnd\config\HibernateConfig.class
 niit\ecommerce\main\MainBackEnd\DaoImpl\CartDaoImpl.class
 niit\ecommerce\main\MainBackEnd\dto\Cart.class
 niit\ecommerce\main\MainBackEnd\DaoImpl\ReviewDaoImpl.class
-niit\ecommerce\main\MainBackEnd\Dao\SupplierDao.class
 niit\ecommerce\main\MainBackEnd\dto\Category.class
 niit\ecommerce\main\MainBackEnd\DaoImpl\CategoryDaoImpl.class
 niit\ecommerce\main\MainBackEnd\dto\CartItem.class

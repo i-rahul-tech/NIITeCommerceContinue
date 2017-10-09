@@ -183,11 +183,11 @@
 			<!--End Of Search Bar Container-->
 			<div class="col-sm-3" style="padding: 10px 0 0 17%;">
 				<p style="color: white">
-				<c:if test="${pageContext.request.userPrincipal.name == null}">
+				<c:if test="${username == null}">
 					<b>Wecome To <br>&nbsp;&nbsp;&nbsp;JustBuy</b>
 					</c:if>
-					<c:if test="${pageContext.request.userPrincipal.name != null}">
-					<b class="text-capitalize" style="padding-left:8px;">Welcome,</b><b class="text-capitalize" style="padding-left:15px;"> &nbsp;${uname}</b>
+					<c:if test="${username != null}">
+					<b class="text-capitalize" style="padding-left:8px;">Welcome,</b><b class="text-capitalize" style="padding-left:15px;"> &nbsp;${username}</b>
 					</c:if>
 				</p>
 			</div>

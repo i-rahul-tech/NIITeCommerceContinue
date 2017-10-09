@@ -64,6 +64,8 @@ div.section > div > input {margin:0;padding-left:5px;font-size:10px;padding-righ
                     <h6 class="title-price"><small>Price</small></h6>
                     <h3 style="margin-top:0px;">&#8377; ${product.price}</h3>
         
+                   <form action="${context}/user/userproductdisplay" method="get">
+         <input type="hidden" name="pid" value="${product.prod_id}" />
                     <div class="section" style="padding-bottom:20px;">
                         <h6 class="title-attr"><small>Quantity</small></h6>                    
                         <div>
@@ -71,16 +73,35 @@ div.section > div > input {margin:0;padding-left:5px;font-size:10px;padding-righ
                             <input name="quant" value="1" />
                             <div class="btn-plus"><span class="glyphicon glyphicon-plus"></span></div>
                         </div>
-                    </div>                
-        
-                    <div class="section" style="padding-bottom:20px;">
+                    </div>                       			
+        			<div class="section">
+        			<c:if test="${(product.category.category_id == 16) || (product.category.category_id == 17)|| (product.category.category_id == 18) || (product.category.category_id == 19)}">
+        				<select class="form-control" style="width:100px;">
+        				<c:forEach begin="1" end="10" var = "b">
+        				<option value="${b}">${b}</option>
+        				</c:forEach>
+        				</select>
+        			</c:if>
+        			<c:if test="${(product.category.category_id == 14) || (product.category.category_id == 15)}">
+        				<select name="size" class="form-control" style="width:100px;">
+        				<option value="small">S</option>
+        				<option value="small">M</option>
+        				<option value="small">L</option>
+        				<option value="small">XL</option>
+        				<option value="small">XXL</option>
+        				</select>
+        			</c:if>
+        			</div>
+                    
+                    <div class="section" style="padding:10px 2% 20px 2%;">
                     <c:if test="${product.quantity > 0}">
-                        <a href="${context}/user/userproductdisplay?pid=${product.prod_id}" class="btn btn-success"><span style="margin-right:20px" class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Add To Cart</a>
+                        <button type="submit" class="btn btn-success"><span style="margin-right:20px" class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Add To Cart</button>
                     </c:if>
                     <c:if test="${product.quantity <= 0}">
-                        <a href="" class="btn btn-success"  disabled="true"><span style="margin-right:20px" class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Out Of Stock</a>
+                        <button type="submit" class="btn btn-success" disabled><span style="margin-right:20px" class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Out Of Stock</button>
                     </c:if>
                     </div>
+                    </form>
                     <br/> 
                     <div>
                     <small>Note:</small><br/>

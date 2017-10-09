@@ -14,9 +14,13 @@
 </style>
 </head>
 <body>
+ <c:if test="${param.oos != null}">
+	<script>alert("${param.oos}");
+	</script>
+	</c:if>
 <jsp:include page="/WEB-INF/views/header.jsp"/>
 <div class="container-fluid" style="margin-top:7px;">
-<h1>Hello</h1>
+<h1 class="text-capitalize">Hello ${username},</h1>
 	<table id="cart" class="table table-hover table-condensed">
     				<thead>
 						<tr>
@@ -63,7 +67,12 @@
 							<td><a href="${context}/index" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a></td>
 							<td colspan="2" class="hidden-xs"></td>
 							<td class="hidden-xs text-center"><strong><input type="hidden" id="totalprice" value="32999"/>Total &#x20B9; ${total}</strong></td>
-							<td><a href="#" class="btn btn-success btn-block">Checkout <i class="fa fa-angle-right"></i></a></td>
+							<c:if test="${csize > 0}">
+							<td><a href="${context}/checkoutData" class="btn btn-success btn-block">Checkout <i class="fa fa-angle-right"></i></a></td>
+							</c:if>
+							<c:if test="${csize <= 0}">
+							<td><a href="#" class="btn btn-success btn-block" disabled onclick="alert('You Cannot Checkout. Add Some Product To Cart To Checkout')">Checkout <i class="fa fa-angle-right"></i></a></td>
+							</c:if>
 						</tr>
 					</tfoot>
 				</table>

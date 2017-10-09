@@ -66,7 +66,7 @@ window.location.href = "${context}/index";
 			<tr>
 				<th>Product Name</th>
 				<td><input type="text" class="input-xlarge text-capitalize text-info" name="pname"
-					value="${pname}" required></td>
+					value="${pname}" disabled></td>
 			</tr>
 			<tr>
 				<th>Rating*</th>

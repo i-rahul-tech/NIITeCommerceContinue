@@ -31,7 +31,8 @@
 			path="/registrationFlow.xml" />
 			<webflow:flow-location id="sregistration"
 			path="/sregistrationFlow.xml" />
-		<webflow:flow-location id="checkout" path="/checkoutFlow.xml" />
+		<webflow:flow-location id="checkout"
+			path="/checkoutFlow.xml" />
 	</webflow:flow-registry>
 
 	<webflow:flow-builder-services id="flowBuilderServices"

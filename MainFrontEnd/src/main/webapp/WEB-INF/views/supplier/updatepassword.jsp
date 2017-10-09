@@ -37,8 +37,9 @@
 		<div class="row">
 		<div class="col-sm-4" style="margin:0 0 0 90px;">
 		<c:if test="${param.msg != null}">
-		<script>alert("${param.msg}")</script>
+		<script>alert("${param.msg}")
 		window.location.href = "${context}/login";
+		</script>
 		</c:if>
 		<c:if test="${param.msg == null}">
 		<h2 style="margin-left:40px;"><b>Update Password</b></h2>
@@ -46,7 +47,7 @@
 				<table>
 				<col width="200">
 				<col width="200">
-				<form action="${context}/updatepassword" method="POST">
+				<form action="${context}/supdatepassword" method="POST">
 					<input type = "hidden" id="oldpassword" value="${upwd}"/>
 					<tr>
 					<th>Old Password<sup>*</sup></th>

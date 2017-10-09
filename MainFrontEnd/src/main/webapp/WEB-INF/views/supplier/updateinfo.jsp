@@ -52,7 +52,7 @@
 				<table>
 				<col width="200">
 				<col width="200">
-				<form action="${context}/updateuserinfo" method="POST"><br />
+				<form action="${context}/supdateuserinfo" method="POST"><br />
 					<tr>
 					<th>Name<sup>*</sup></th>
 					</tr>
@@ -62,7 +62,7 @@
 					</tr>
 					<tr>
 					<td><input type="text" name="ufname" class="form-control" value="${user.ufname}" required/></td>
-					<td><input type="text" name="ulname" class="form-control" value="${user.ulname}" /></td>
+					<td><input type="text" name="ulname" class="form-control" value="${user.ulname}"/></td>
 					</tr>
 					
 					<tr>

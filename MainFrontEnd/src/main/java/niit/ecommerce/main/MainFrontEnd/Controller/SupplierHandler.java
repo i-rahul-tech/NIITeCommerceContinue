@@ -135,6 +135,68 @@ public class SupplierHandler {
 		}
 	}
 	
+	@RequestMapping(value = { "/supplier/updatepwd" })
+	public String tosupdatepwdpage(Principal principal, Model map) {
+		User user = userDao.getUserByUsername(principal.getName());
+		map.addAttribute("uname", user.getUfname());
+		map.addAttribute("upwd", user.getPassword());
+		return "supplier/updatepassword";
+	}
+
+	@RequestMapping(value = { "/supdatepassword" }, method = RequestMethod.POST)
+	public String tosUpdateUser(@RequestParam("oldpwd") String oldpwd, @RequestParam("newpwd") String newpwd,
+			Principal principal, Model map, HttpServletRequest request) {
+		String referer = request.getHeader("Referer");
+		User user = userDao.getUserByUsername(principal.getName());
+
+		if (user.getPassword().equals(oldpwd)) {
+			user.setPassword(newpwd);
+			Boolean b = userDao.updateUser(user);
+			if (b) {
+				map.addAttribute("msg", "Password Changed Successfully");
+				return "redirect:" + referer;
+			} else {
+				map.addAttribute("msg", "Oops.......Something Went Wrong...Try Again Later...");
+				return "redirect:" + referer;
+			}
+		} else {
+			map.addAttribute("pname", user.getUfname());
+			return "redirect:" + referer;
+		}
+	}
+	
+	@RequestMapping(value = { "/supplier/updateinfo" }, method = RequestMethod.GET)
+	public String tosupdatepage(Principal principal, Model map) {
+		User user = userDao.getUserByUsername(principal.getName());
+		map.addAttribute("user", user);
+		map.addAttribute("uname", user.getUfname());
+		return "supplier/updateinfo";
+	}
+
+	@RequestMapping(value = { "/supdateuserinfo" }, method = RequestMethod.POST)
+	public String tosUpdateUser(@RequestParam("ufname") String ufname,@RequestParam("ulname") String ulname,@RequestParam("dob") String dob, @RequestParam("contact") String contact,
+			@RequestParam("address") String address, @RequestParam("state") String state,
+			@RequestParam("pincode") String pincode, Principal principal, Model map, HttpServletRequest request) {
+		String referer = request.getHeader("Referer");
+		System.out.println("Referer is "+referer);
+		User user = userDao.getUserByUsername(principal.getName());
+		user.setUfname(ufname);
+		user.setUlname(ulname);
+		user.setDob(dob);
+		user.setContact(contact);
+		user.setPincode(pincode);
+		user.setAddress(address);
+		user.setState(state);
+		System.out.println(ufname+" "+ulname);
+		Boolean b = userDao.updateUser(user);
+		if (b) {
+			map.addAttribute("msg", "Your Information Have Been Successfuly Updated");
+			return "redirect:" + referer;
+		} else {
+			map.addAttribute("msg", "Oops.......Something Went Wrong...Try Again Later...");
+			return "redirect:" + referer;
+		}
+	}
 	
 	@ModelAttribute("categoryList")
 	public List<Category> getCategory(Model map) {

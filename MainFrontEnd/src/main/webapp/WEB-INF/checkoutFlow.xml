@@ -1,42 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <flow xmlns="http://www.springframework.org/schema/webflow"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://www.springframework.org/schema/webflow
-                          http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
- 
-	<!-- Executed when webFlow is triggered -->
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow
+                          http://www.springframework.org/schema/webflow/spring-webflow.xsd">
+
+	<var name="user" class="niit.ecommerce.main.MainBackEnd.dto.User" />
+	<var name="payment" class="niit.ecommerce.main.MainBackEnd.dto.Payment" />
+
+	<var name="cart" class="niit.ecommerce.main.MainBackEnd.dto.Cart" />
+	<input name="user_id" />
 	<on-start>
-	<!-- checkoutHandler is java class available through annotated checkoutHandler.java class.here we are calling it’s initFlow() method. -->
-	  <evaluate expression="checkoutHandler.initFlow()" result="flowScope.user"/>
+		<evaluate expression="checkoutHandler.initCart(user_id)"
+			result="flowScope.user" />
+
+		<evaluate expression="checkoutHandler.initCartByUser(user_id)"
+			result="flowScope.cart" />
+
+		<evaluate expression="checkoutHandler.initPaymentByUserid(user_id)"
+			result="flowScope.payment" />
 	</on-start>
- 
-	 <!-- if not specified the first view state is the starting state -->
-	<view-state id="start" view="register" model="flowScope.user">
-	   <transition on="submit" to="validate"/>
+
+	<!-- if not specified the first view state is the starting state -->
+	<view-state id="start" view="user/flowAddress" model="flowScope.user">
+		<transition on="addressSubmit" to="addressValidate" />
 	</view-state>
- 
-	<action-state id="validate">
-		<evaluate expression="checkoutHandler.validateDetails(user,messageContext)"></evaluate>
-		<transition on="success" to="confirmDetails" />
+	<action-state id="addressValidate">
+		<evaluate
+			expression="checkoutHandler.addressValidateDetails(user, messageContext)"></evaluate>
+		<transition on="success" to="payment" />
 		<transition on="failure" to="start" />
 	</action-state>
- 
-	<view-state id="confirmDetails" view="confirmDetails" model="flowScope.user">
-		<transition on="edit" to="start" />
-		<transition on="submit" to="saveDetails" />
+
+	<view-state id="payment" view="/user/paymentPage" model="flowScope.payment">
+		<transition on="paymentSubmit" to="paymentValidate" />
 	</view-state>
-	
+
+ 	<action-state id="paymentValidate">
+		<evaluate
+			expression="checkoutHandler.paymentValidateDetails(payment, messageContext)"></evaluate>
+		<transition on="success" to="saveDetails" />
+		<transition on="failure" to="payment" />
+	</action-state>
+
 	<action-state id="saveDetails">
-		<evaluate expression="checkoutHandler.saveUser(user)"></evaluate>
+		<evaluate expression="checkoutHandler.saveDetails(user)"></evaluate>
 		<transition on="success" to="welcome" />
 		<transition on="failure" to="start" />
 	</action-state>
- 
-	<end-state id="welcome" view="welcome" />
-	<end-state id="toHome" view="externalRedirect:contextRelative:index.jsp" />
-	<end-state id="toException" view="externalRedirect:contextRelative:exception.jsp" />
- 
-	<!-- these events are available in every state-->
+
+	<end-state id="welcome" view="/user/congo" />
+	<end-state id="toHome" view="externalRedirect:contextRelative:congo.jsp" />
+	<end-state id="toException"
+		view="externalRedirect:contextRelative:exception.jsp" />
+
+	<!-- these events are available in every state -->
+
 	<global-transitions>
 		<transition on="home" to="toHome" />
 		<transition on="error" to="toException" />

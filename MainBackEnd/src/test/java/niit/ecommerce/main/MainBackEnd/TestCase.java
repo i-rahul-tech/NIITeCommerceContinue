@@ -6,18 +6,19 @@ import java.util.List;
 import java.util.Scanner;
 
 import org.junit.BeforeClass;
-import org.junit.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import niit.ecommerce.main.MainBackEnd.Dao.CartDao;
 import niit.ecommerce.main.MainBackEnd.Dao.CartItemDao;
 import niit.ecommerce.main.MainBackEnd.Dao.CategoryDao;
+import niit.ecommerce.main.MainBackEnd.Dao.PaymentDao;
 import niit.ecommerce.main.MainBackEnd.Dao.ProductDao;
 import niit.ecommerce.main.MainBackEnd.Dao.ReviewDao;
 import niit.ecommerce.main.MainBackEnd.Dao.UserDao;
 import niit.ecommerce.main.MainBackEnd.dto.Cart;
 import niit.ecommerce.main.MainBackEnd.dto.CartItem;
 import niit.ecommerce.main.MainBackEnd.dto.Category;
+import niit.ecommerce.main.MainBackEnd.dto.Payment;
 import niit.ecommerce.main.MainBackEnd.dto.Product;
 import niit.ecommerce.main.MainBackEnd.dto.Review;
 import niit.ecommerce.main.MainBackEnd.dto.User;
@@ -33,6 +34,7 @@ public class TestCase {
 	static CartDao cartDao;
 	static CartItemDao cartItemDao;
 	static CategoryDao categoryDao;
+	static PaymentDao paymentDao;
 	
 	static ReviewDao reviewDao;
 	User user;
@@ -40,6 +42,7 @@ public class TestCase {
 	Cart cart;
 	CartItem cartitem;
 	Category category;
+	Payment payment;
 	Review review;
 
 	@BeforeClass
@@ -54,6 +57,7 @@ public class TestCase {
 		cartDao = (CartDao) context.getBean("cartDao");
 		categoryDao = (CategoryDao) context.getBean("categoryDao");
 		reviewDao = (ReviewDao) context.getBean("reviewDao");
+		paymentDao = (PaymentDao) context.getBean("paymentDao");
 	}
 
 	//@Test

@@ -207,8 +207,8 @@
 					<ul class="dropdown-menu dropdown-menu-left dropdownstyle">
 						<c:if test="${pageContext.request.userPrincipal.name != null}">
 						<li><a href="${context}/index">Home</a></li>
-						<li><a href="${context}/admin/updateinfo">Update Profile</a></li>
-						<li><a href="${context}/admin/updatepwd">Update Password</a></li>
+						<li><a href="${context}/supplier/updateinfo">Update Profile</a></li>
+						<li><a href="${context}/supplier/updatepwd">Update Password</a></li>
 						<li><a href="${context}/logout">Logout</a></li>
 						<li class="divider"></li>
 						<li><a href="${context}/aboutus">About Us</a></li>

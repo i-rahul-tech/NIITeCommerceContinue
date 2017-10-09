@@ -4,6 +4,7 @@ import java.security.Principal;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -50,7 +51,7 @@ public class PageController {
 	ReviewDao reviewDao;
 
 	@RequestMapping(value = { "/", "/index", "/home" })
-	public String index(Principal principal, Model model) {
+	public String index(Principal principal, Model model, HttpSession session) {
 		System.out.println("Hello From Index");
 		if (principal != null) {
 
@@ -58,12 +59,14 @@ public class PageController {
 			System.out.println("Role: "+user.getRole());
 			if (user.getRole().equalsIgnoreCase("Admin")) {
 				model.addAttribute("uname", user.getUfname());
+				session.setAttribute("username", user.getUfname());
 				return "admin/adminIndex";
 			} else if (user.getRole().equalsIgnoreCase("Customer")) {
 				System.out.println("Hello From Customer.......");
 				if (user.getStatus().equals("1")) {
 					model.addAttribute("uemail", principal.getName());
 					model.addAttribute("uname", user.getUfname());
+					session.setAttribute("username", user.getUfname());
 					return "user/userindex";
 				}
 			}
@@ -75,6 +78,7 @@ public class PageController {
 						model.addAttribute("uname", user.getUfname());
 						model.addAttribute("total",pro.size());
 						model.addAttribute("supplier",user);
+						session.setAttribute("username", user.getUfname());
 						return "supplier/sindex";
 					}
 				}
@@ -177,6 +181,7 @@ public class PageController {
 			List<CartItem> cartlist = cartItemDao.cartItemGetByCart(cart);
 			map.addAttribute("uname", user.getUfname());
 			map.addAttribute("cartlist", cartlist);
+			map.addAttribute("csize", cartlist.size());
 			map.addAttribute("total", cart.getGrandTotal());
 			return "user/usercart";
 		}
@@ -240,7 +245,7 @@ public class PageController {
 	}
 
 	@RequestMapping("/user/userproductdisplay")
-	public String addToCartFromProductDisplayPage(@RequestParam("pid") Long pid, Principal principal, Model map,
+	public String addToCartFromProductDisplayPage(@RequestParam("pid") Long pid,@RequestParam("quant") int quant, Principal principal, Model map,
 			HttpServletRequest request) {
 		if (principal != null) {
 			String referer = request.getHeader("Referer");
@@ -252,11 +257,11 @@ public class PageController {
 				cartitem = new CartItem();
 				cartitem.setCart(cart);
 				cartitem.setProduct(product);
-				cartitem.setSell_quantity(1);
+				cartitem.setSell_quantity(quant);
 				cartitem.setTotal_price(product.getPrice());
 				Boolean b = cartItemDao.addCartItem(cartitem);
 				if (b) {
-					map.addAttribute("msg", "Product " + product.getProd_name() + " Added To Cart");
+					map.addAttribute("msg", product.getProd_name() + " Added To Cart");
 					cartitem = cartItemDao.getCartItemByCartIdAndProductId(cart, product);
 					cart.setGrandTotal(cartItemDao.getGrandTotal(cart));
 					cart.setCartItemCount(cartItemDao.getTotalQuantity(cart));
@@ -267,12 +272,12 @@ public class PageController {
 					return "redirect:" + referer;
 				}
 			} else {
-				int newquant = cartitem.getSell_quantity() + 1;
+				int newquant = quant;
 				cartitem.setSell_quantity(newquant);
 				cartitem.setTotal_price(product.getPrice() * newquant);
 				Boolean b = cartItemDao.updateCartItem(cartitem);
 				if (b) {
-					map.addAttribute("msg", "One More Quantity Of " + product.getProd_name() + " Added To Cart");
+					map.addAttribute("msg", product.getProd_name() + " Added To Cart");
 					cart.setGrandTotal(cartItemDao.getGrandTotal(cart));
 					cart.setCartItemCount(cartItemDao.getTotalQuantity(cart));
 					cartDao.updateCart(cart);
@@ -298,13 +303,11 @@ public class PageController {
 		cartitem.setTotal_price(product.getPrice() * quan);
 		Boolean b = cartItemDao.updateCartItem(cartitem);
 		if (b) {
-			map.addAttribute("msg", "Product Updated To Cart");
 			cart.setGrandTotal(cartItemDao.getGrandTotal(cart));
 			cart.setCartItemCount(cartItemDao.getTotalQuantity(cart));
 			cartDao.updateCart(cart);
 			return "redirect:" + referer;
-		} else {
-			map.addAttribute("msg", "Error....Please Try Again Later");
+		} else {;
 			return "redirect:" + referer;
 		}
 	}
@@ -333,12 +336,14 @@ public class PageController {
 	}
 
 	@RequestMapping(value = { "/updateuserinfo" }, method = RequestMethod.POST)
-	public String toUpdateUser(@RequestParam("dob") String dob, @RequestParam("contact") String contact,
+	public String toUpdateUser(@RequestParam("ufname") String ufname,@RequestParam("ulname") String ulname,@RequestParam("dob") String dob, @RequestParam("contact") String contact,
 			@RequestParam("address") String address, @RequestParam("state") String state,
 			@RequestParam("pincode") String pincode, Principal principal, Model map, HttpServletRequest request) {
 		String referer = request.getHeader("Referer");
 		User user = userDao.getUserByUsername(principal.getName());
 
+		user.setUfname(ufname);
+		user.setUlname(ulname);
 		user.setDob(dob);
 		user.setContact(contact);
 		user.setPincode(pincode);
@@ -429,6 +434,31 @@ public class PageController {
 		}
 		
 	}
+	
+	@RequestMapping("/checkoutData")
+	public String getCheckout(Principal principal, Model map, HttpServletRequest req) {
+		String ref = req.getHeader("Referer");
+		User user = userDao.getUserByUsername(principal.getName());
+		Cart cart = user.getCart();
+		List<CartItem> cartitem = cartItemDao.cartItemGetByCart(cart);
+		for(CartItem c : cartitem)
+		{
+			Product p = c.getProduct();
+			if(p.getQuantity()<=0 )
+			{
+				map.addAttribute("oos",p.getProd_name()+ " Is Out Of Stock, Remove It From Cart To Continue...");
+				return "redirect:" + ref;
+			}
+			else if(p.getQuantity()< c.getSell_quantity() )
+			{
+				map.addAttribute("oos",p.getProd_name()+ " Is Not Available In This Quantity, You can buy only " + p.getQuantity());
+				return "redirect:" + ref;
+			}
+		}
+		map.addAttribute("uname", user.getUfname());
+		return "redirect:/checkout?user_id=" + user.getUser_id();
+	}
+
 
 	@RequestMapping("/aboutus")
 	public String aboutus(Model map, Principal principal) {
@@ -437,6 +467,13 @@ public class PageController {
 			map.addAttribute("uname", user.getUfname());
 		}
 		return "aboutus";
+	}
+	
+	@RequestMapping("/print")
+	public String printquant(@RequestParam("quant") String quant)
+	{
+		System.out.println("Quantity Is "+quant);
+		return "";
 	}
 	
 	@RequestMapping("/contactus")
