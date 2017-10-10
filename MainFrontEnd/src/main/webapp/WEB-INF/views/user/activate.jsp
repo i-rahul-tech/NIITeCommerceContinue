@@ -18,7 +18,7 @@
 <title>Welcome Admin</title>
 </head>
 <body>
-	<jsp:include page="/WEB-INF/views/header.jsp"></jsp:include>
+	
 	<div class="container" style="margin: 15px 0 0 5%;">
 	<h4 class="text-info">Your Account Have Been Temporarily Deactivated....</h4>
 	<small class="text-success">Note:This Could Be Due To Inactivity Of Account Or May Have Been Disabled For Security Reason</small>

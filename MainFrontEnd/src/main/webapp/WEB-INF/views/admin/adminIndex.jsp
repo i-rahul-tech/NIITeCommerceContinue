@@ -13,15 +13,22 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<style>
+.cssTable th,td 
+{
+    text-align:center; 
+    vertical-align:middle;
+}
+</style>
 <title>Welcome Admin</title>
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/admin/adminheader.jsp"></jsp:include>
-<div class="container " style="margin-top:15px;">
+<div class="container " style="margin-top:30px;">
 	<h3 class="text-success">Tables In Database</h3>
 	<div class="row">
 	<div class="col-sm-12 table-responsive">
-		<table class="table table-hover table-bordered">
+		<table class="table table-hover table-bordered cssTable">
 		<thead>
 			<tr>
 				<th>#</th>
@@ -34,30 +41,19 @@
 		<th>1</th>
 		<td class="text-primary">User</td>
 		<td class="text-success">Contains All Data About User</td>
-		<td class="text-info"><a href="${context}/viewuser" class="btn btn-info">View User</a></td>
+		<td class="text-info"><center><a href="${context}/viewuser" class="btn btn-info">View User</a></center></td>
 		</tr>
 		<tr>
 		<th>2</th>
 		<td class="text-primary">Supplier</td>
 		<td class="text-success">Contains All Data About Supplier</td>
-		<td class="text-info"><a href="${context}/viewsupplier" class="btn btn-info">View Supplier</a></td>
+		<td class="text-info"><center><a href="${context}/viewsupplier" class="btn btn-info">View Supplier</a></center></td>
 		</tr>
 		<tr>
 		<th>3</th>
 		<td class="text-primary">Products</td>
 		<td class="text-success">Contains All Data About Product</td>
-		<td class="text-info"><a href="${context}/viewproduct" class="btn btn-info">View Product</a></td>
-		</tr>
-		<tr>
-		<th>4</th>
-		<td class="text-primary">Cart</td>
-		<td class="text-success">Contains All Data About Cart Of A User</td>
-		</tr>
-		<tr>
-		<th>5</th>
-		<td class="text-primary">CartItem</td>
-		<td class="text-success">Contains All Data About CartItem. CartItem contains information about the product the user have added to the cart</td>
-		
+		<td class="text-info"><center><a href="${context}/viewproduct" class="btn btn-info">View Product</a></center></td>
 		</tr>
 		</table>
 	</div>

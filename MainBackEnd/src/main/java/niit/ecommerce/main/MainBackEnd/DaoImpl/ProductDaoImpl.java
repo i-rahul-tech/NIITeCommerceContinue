@@ -141,7 +141,7 @@ public class ProductDaoImpl implements ProductDao{
 	//Search Product By Name
 	public List<Product> getProductByProductName(String search) {
 		//Creating Query
-		String selectProduct = "From Product where prod_name like lower(:parameter)";
+		String selectProduct = "From Product where activeis='TRUE' and prod_name like lower(:parameter)";
 		Query<Product> query = sessionFactory.getCurrentSession().createQuery(selectProduct, Product.class);
 		query.setParameter("parameter", '%'+search+'%');
 		try{

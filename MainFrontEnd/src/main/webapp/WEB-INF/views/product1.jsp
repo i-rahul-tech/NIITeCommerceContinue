@@ -19,7 +19,7 @@ height:300px
 }
 .imgcont img {
     width: 350px;
-    height: 250px;
+    height: 280px;
 }
 </style>
 </head>
@@ -36,7 +36,7 @@ height:300px
                 <div class="imgcont"><img src=<c:url value="${a.prodImg_url}" /> alt="${a.prodImg_url}" class="img-responsive"></div>
                 <div class="caption">
                   <h4 class="pull-right">&#8377; ${a.price}</h4>
-                  <h4 class="text-capitalize"><a href="product/display?pid=${a.prod_id}">${a.prod_name}</a></h4>
+                  <h4 class="text-capitalize"><a href="${context}/product/display?pid=${a.prod_id}">${a.prod_name}</a></h4>
                   <small class="text-capitalize text-info">Sold By: ${a.user.s_comp_name}</small>
 
                 </div>

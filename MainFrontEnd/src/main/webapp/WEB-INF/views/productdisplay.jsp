@@ -64,7 +64,7 @@ div.section > div > input {margin:0;padding-left:5px;font-size:10px;padding-righ
                 </div>
                 <div class="col-xs-5" style="border:0px solid gray">
                     <h3 class="text-capitalize">${product.prod_name}</h3>    
-                    <h5 style="color:#337ab7">Sold By ${product.user.s_comp_name}</h5> <small>&nbsp;&nbsp;Quantity Left: ${product.quantity}</small>
+                    <h5 style="color:#337ab7" class="text-capitalize">Sold By ${product.user.s_comp_name}</h5> <small>&nbsp;&nbsp;Quantity Left: ${product.quantity}</small>
         
                     <h6 class="title-price"><small>Price</small></h6>
                     <h3 style="margin-top:0px;">&#8377; ${product.price}</h3>
@@ -115,19 +115,22 @@ div.section > div > input {margin:0;padding-left:5px;font-size:10px;padding-righ
                 </div>                              
         
                 <div class="col-sm-9">
-                    <ul class="menu-items">
-                        <li class="active">Product Details</li>
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#product" data-toggle="tab">Product Details</a></li>
+						 <li><a href="#review" data-toggle="tab">Review</a></li>
                     </ul>
-                    <div  style="width:60%;border-top:1px solid silver">
-                        <p style="padding:15px;" class="text-justify">
-                            ${product.prod_description}
-                        </p>
+                    <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane active in" id="product">
+                    <div class="row">
+                    <div class="col-sm-6">
+								<p style="padding: 15px;" class="text-justify">
+									${product.prod_description}</p>
+							</div>
+                   	</div>
                     </div>
-                </div>		
-            </div>
-            
-            <div class="row" style="margin-top:8px; border-top:2px black">
-            <div col-sm-3>
+                    <div class="tab-pane fade" id="review">
+						<div class="row" style="margin:8px 0  0 20px; border-top:2px black">
+            <div style="margin:10px 0 0 15px;">
             <form action="${context}/user/review" method="post">
             <input type="hidden" value="${product.prod_id}" name="pid"/>
             <input type = "image" src = "<c:url value="/resources/images/review.JPG"/>" />
@@ -148,6 +151,11 @@ div.section > div > input {margin:0;padding-left:5px;font-size:10px;padding-righ
             </div>
             </c:forEach>
             </div>
+					</div>
+                    </div>
+                </div>		
+            </div>
+            
         </div>
 <script src=<c:url value="/resources/javascript/content.js" /> type="text/javascript"></script>
 

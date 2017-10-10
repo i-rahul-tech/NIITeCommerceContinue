@@ -61,13 +61,18 @@ public class PageController {
 				model.addAttribute("uname", user.getUfname());
 				session.setAttribute("username", user.getUfname());
 				return "admin/adminIndex";
-			} else if (user.getRole().equalsIgnoreCase("Customer")) {
+			} 
+			else if (user.getRole().equalsIgnoreCase("Customer")) {
 				System.out.println("Hello From Customer.......");
 				if (user.getStatus().equals("1")) {
 					model.addAttribute("uemail", principal.getName());
 					model.addAttribute("uname", user.getUfname());
 					session.setAttribute("username", user.getUfname());
 					return "user/userindex";
+				}
+				else
+				{
+					return "user/activate";
 				}
 			}
 				else if (user.getRole().equalsIgnoreCase("Supplier")) {
@@ -81,10 +86,10 @@ public class PageController {
 						session.setAttribute("username", user.getUfname());
 						return "supplier/sindex";
 					}
-				}
-				else {
-					model.addAttribute("uname", user.getUfname());
-					return "user/activate";
+					else {
+						model.addAttribute("uname", user.getUfname());
+						return "user/activate";
+					}
 				}
 			}
 		return "index";
@@ -134,6 +139,7 @@ public class PageController {
 		}
 		ModelAndView mv = new ModelAndView("product1");
 		Category category = categoryDao.getCategoryBySubCategoryName(cat_name);
+		System.out.println("Hello From subcategory");
 		List<Product> productlist = productDao.getActiveProductByCategory(category);
 		map.addAttribute("prod_list", productlist);
 		return mv;

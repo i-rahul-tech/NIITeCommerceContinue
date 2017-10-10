@@ -9,6 +9,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -66,6 +67,8 @@ public class SaveImage {
 		if (dir.exists()) {
 			String filename = file.getOriginalFilename();
 			filename = filename.replaceAll("\\s+", "");
+			String ext = FilenameUtils.getExtension(filename);
+			System.out.println("File Extension Is: " + ext);
 			String imgpath = "/resources/images/" + s.getS_comp_name() + "_" + s.getUser_id() + "/" + filename;
 			imgpath = imgpath.replaceAll("\\s+", "");
 			// TO SAVE IMAGE TO LOCATION
@@ -90,6 +93,8 @@ public class SaveImage {
 			dir.mkdir();
 			String filename = file.getOriginalFilename();
 			filename = filename.replaceAll("\\s+", "");
+			String ext = FilenameUtils.getExtension(filename);
+			System.out.println("File Extension Is: " + ext);
 			System.out.println("FileName"+filename);
 			String imgpath = "/resources/images/" + s.getS_comp_name() + "_" + s.getUser_id() + "/" + filename;
 			imgpath = imgpath.replaceAll("\\s+", "");
